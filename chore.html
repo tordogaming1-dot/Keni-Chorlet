@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choré — KEÑI CHORLÊT</title>
+<meta name="description" content="KEÑI CHORLÊT — Bloom Outside the Lines.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap');
+
+  :root{
+    --cream:#f8f5f1;
+    --paper:#fffdfb;
+    --rose:#d8b5b5;
+    --dusty:#b8878e;
+    --ink:#262222;
+    --muted:#716667;
+    --line:rgba(38,34,34,.13);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"DM Sans",Arial,sans-serif;
+    line-height:1.5;
+  }
+  a{color:inherit;text-decoration:none}
+  button{font:inherit}
+
+  /* HEADER */
+  header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(255,253,251,.94);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar{
+    height:82px;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    padding:0 4vw;
+  }
+  .locale{font-size:13px;letter-spacing:.08em}
+  .brand{
+    text-align:center;
+    font-weight:600;
+    letter-spacing:.16em;
+    font-size:22px;
+  }
+  .brand small{
+    display:block;
+    font-size:9px;
+    letter-spacing:.28em;
+    margin-top:3px;
+    font-weight:500;
+  }
+  .icons{display:flex;justify-content:flex-end;gap:22px;font-size:20px}
+  .nav{
+    display:flex;
+    justify-content:center;
+    gap:38px;
+    padding:0 20px 18px;
+    font-size:13px;
+    text-transform:lowercase;
+  }
+  .nav a{position:relative}
+  .nav a:after{
+    content:"";
+    position:absolute;
+    left:0;bottom:-5px;
+    width:0;height:1px;
+    background:var(--ink);
+    transition:.3s;
+  }
+  .nav a:hover:after{width:100%}
+
+  /* HERO */
+  .hero{
+    min-height:78vh;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:flex-end;
+    background:
+      linear-gradient(90deg,rgba(45,27,29,.42),rgba(45,27,29,.05) 60%),
+      radial-gradient(circle at 75% 25%,#e8cfd0 0 12%,transparent 13%),
+      linear-gradient(120deg,#9d777b,#ead9d4 62%,#b88f91);
+  }
+  .hero:before{
+    content:"YOUR CAMPAIGN PHOTO";
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+    color:rgba(255,255,255,.55);
+    font-size:clamp(20px,3vw,42px);
+    letter-spacing:.15em;
+    font-weight:600;
+  }
+  .hero-content{
+    position:relative;
+    z-index:1;
+    color:white;
+    padding:8vw 7vw;
+    max-width:650px;
+  }
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+  h1{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(60px,9vw,125px);
+    line-height:.8;
+    font-weight:500;
+    letter-spacing:-.035em;
+  }
+  .hero h2{font-size:15px;letter-spacing:.22em;margin:20px 0 12px}
+  .hero p{max-width:430px;font-size:16px}
+  .btn{
+    display:inline-block;
+    margin-top:28px;
+    padding:14px 25px;
+    background:white;
+    color:var(--ink);
+    border:0;
+    cursor:pointer;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    transition:.25s;
+  }
+  .btn:hover{transform:translateY(-2px);opacity:.9}
+
+  /* MARQUEE */
+  .marquee{
+    overflow:hidden;
+    white-space:nowrap;
+    border-bottom:1px solid var(--line);
+    background:var(--cream);
+    padding:15px 0;
+    font-size:11px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+  }
+  .marquee span{display:inline-block;margin-right:55px}
+
+  /* GENERAL */
+  section{padding:100px 6vw}
+  .section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:48px}
+  .kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  h2.title{
+    font-family:"Cormorant Garamond",serif;
+    font-weight:500;
+    font-size:clamp(45px,6vw,82px);
+    line-height:.9;
+  }
+  .intro{max-width:440px;color:var(--muted);font-size:15px}
+
+  /* GARDEN */
+  .garden{background:var(--cream)}
+  .products{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  .product{
+    background:var(--paper);
+    min-height:520px;
+    position:relative;
+    overflow:hidden;
+    transition:transform .3s;
+  }
+  .product:hover{transform:translateY(-5px)}
+  .product-photo{
+    height:390px;
+    position:relative;
+    display:grid;
+    place-items:center;
+    overflow:hidden;
+    background:linear-gradient(145deg,#ead6d5,#c7969c);
+  }
+  .product-photo:after{
+    content:"PRODUCT PHOTO";
+    color:rgba(255,255,255,.7);
+    font-size:11px;
+    letter-spacing:.16em;
+  }
+  .bottle{
+    position:absolute;
+    width:92px;height:250px;
+    border-radius:17px 17px 25px 25px;
+    background:linear-gradient(90deg,rgba(255,255,255,.65),rgba(255,255,255,.18));
+    border:1px solid rgba(255,255,255,.65);
+    box-shadow:0 18px 35px rgba(50,20,20,.18);
+    transform:rotate(-3deg);
+    display:none;
+  }
+  .bottle:before{
+    content:"KEÑI\A CHORLÊT";
+    white-space:pre;
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+    text-align:center;
+    font-size:8px;
+    letter-spacing:.15em;
+  }
+  .product-info{padding:20px 20px 24px}
+  .product-name{font-family:"Cormorant Garamond",serif;font-size:30px}
+  .flower{font-size:12px;color:var(--muted);margin-top:3px}
+  .product-info p{font-size:12px;color:var(--muted);margin-top:12px}
+
+  /* EDITORIAL */
+  .editorial{
+    min-height:75vh;
+    display:flex;
+    align-items:flex-end;
+    position:relative;
+    overflow:hidden;
+    color:white;
+    background:
+      linear-gradient(0deg,rgba(35,22,22,.62),transparent 65%),
+      linear-gradient(125deg,#6e5a58,#d9c6be 55%,#967a78);
+  }
+  .editorial:before{
+    content:"REAL EDITORIAL / MODEL CAMPAIGN IMAGE";
+    position:absolute;
+    inset:0;
+    display:grid;
+    place-items:center;
+    color:rgba(255,255,255,.45);
+    letter-spacing:.16em;
+    font-size:12px;
+  }
+  .editorial-content{position:relative;z-index:1;max-width:620px}
+  .editorial h2{font-family:"Cormorant Garamond";font-size:clamp(60px,8vw,110px);line-height:.82;font-weight:500}
+  .editorial p{margin-top:20px;max-width:420px}
+
+  /* PHILOSOPHY */
+  .philosophy{
+    text-align:center;
+    background:#ead8d8;
+    padding:125px 8vw;
+  }
+  .philosophy .quote{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(35px,5vw,68px);
+    line-height:1.05;
+    max-width:1050px;
+    margin:25px auto;
+  }
+
+  /* CHORE */
+  .chore{
+    background:#f4eee9;
+    position:relative;
+    overflow:hidden;
+  }
+  .chore-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .corgi-card{
+    min-height:560px;
+    display:grid;
+    place-items:center;
+    background:
+      radial-gradient(circle at 50% 40%,#e6c3aa 0 18%,transparent 19%),
+      linear-gradient(145deg,#d6b3a5,#f1e3d8);
+    position:relative;
+    overflow:hidden;
+  }
+  .corgi-card:after{
+    content:"🐶";
+    font-size:145px;
+    filter:drop-shadow(0 20px 15px rgba(40,20,15,.12));
+  }
+  .corgi-card span{
+    position:absolute;
+    bottom:22px;
+    left:22px;
+    font-size:10px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
+  .chore-copy h2{font-family:"Cormorant Garamond";font-size:clamp(60px,7vw,105px);line-height:.8;font-weight:500}
+  .chore-copy h3{font-size:13px;letter-spacing:.18em;margin:22px 0;text-transform:uppercase}
+  .chore-copy p{max-width:500px;color:var(--muted)}
+  .chore-links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:35px}
+  .chore-link{border-top:1px solid var(--line);padding:16px 0;font-size:13px}
+
+  /* STORY */
+  .story{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
+  .story-image{
+    min-height:620px;
+    background:linear-gradient(145deg,#d7c0ba,#a98387);
+    display:grid;
+    place-items:center;
+    color:rgba(255,255,255,.6);
+    letter-spacing:.14em;
+    font-size:11px;
+    text-align:center;
+  }
+  .story-copy{padding-top:20px}
+  .story-copy h2{font-family:"Cormorant Garamond";font-size:clamp(55px,6vw,90px);line-height:.85;font-weight:500}
+  .story-copy p{margin-top:25px;color:var(--muted);max-width:500px}
+  .values{margin-top:45px;border-top:1px solid var(--line)}
+  .value{padding:18px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;font-size:13px}
+  .value span{color:var(--muted)}
+
+  /* PROMISE */
+  .promise{
+    text-align:center;
+    background:var(--ink);
+    color:white;
+    padding:140px 8vw;
+  }
+  .promise h2{font-family:"Cormorant Garamond";font-size:clamp(55px,8vw,105px);font-weight:500;line-height:.85}
+  .promise p{margin-top:22px;color:#d7cdcd}
+
+  /* FOOTER */
+  footer{background:#211d1d;color:white;padding:70px 6vw 30px}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:50px;padding-bottom:60px}
+  .footer-brand{font-family:"Cormorant Garamond";font-size:48px}
+  footer h4{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:18px}
+  footer a,footer p{display:block;color:#c9c0c0;font-size:13px;margin:9px 0}
+  .copyright{border-top:1px solid rgba(255,255,255,.15);padding-top:22px;color:#9f9696;font-size:11px;display:flex;justify-content:space-between}
+
+
+  /* BLOOM PRODUCT DETAIL */
+  .bloom-detail{background:#fffaf7}
+  .bloom-product-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:70px;align-items:start}
+  .bloom-gallery{display:grid;gap:14px}
+  .photo-slot{
+    min-height:300px;
+    background:
+      linear-gradient(145deg,#dfc0c1,#b88a8f);
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+    color:rgba(255,255,255,.8);
+    letter-spacing:.14em;
+    font-size:11px;
+    position:relative;
+    overflow:hidden;
+  }
+  .photo-slot.tall{min-height:670px}
+  .photo-slot.has-photo{background-color:#eadbd7}
+  .photo-slot.has-photo > span,
+  .photo-slot.has-photo > small{display:none}
+  .photo-slot small{margin-top:7px;font-size:9px;letter-spacing:.08em;opacity:.85}
+  .bloom-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .bloom-copy{padding-top:10px}
+  .bloom-copy h3{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(55px,6vw,92px);
+    line-height:.8;
+    font-weight:500;
+    margin-top:12px
+  }
+  .bloom-flower{margin-top:10px;color:var(--muted);font-size:13px}
+  .bloom-description{margin-top:27px;max-width:520px;color:var(--muted);font-size:15px}
+  .purchase-row{display:flex;justify-content:space-between;gap:20px;align-items:baseline;border-bottom:1px solid var(--line);padding:25px 0 16px;margin-top:20px}
+  .purchase-row strong{font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:500}
+  .purchase-row span{font-size:11px;color:var(--muted);letter-spacing:.1em}
+  .purchase-actions{display:flex;gap:10px;margin-top:15px}
+  .dark-btn,.light-btn{border:1px solid var(--ink);padding:15px 20px;cursor:pointer;font-size:11px;letter-spacing:.13em;text-transform:uppercase}
+  .dark-btn{background:var(--ink);color:white;flex:1}
+  .light-btn{background:transparent;width:55px;font-size:18px}
+  .bloom-facts{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);margin-top:35px}
+  .fact{padding:18px 0;border-bottom:1px solid var(--line);padding-right:20px}
+  .fact b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.13em}
+  .fact span{display:block;color:var(--muted);font-size:12px;margin-top:6px}
+  details{border-bottom:1px solid var(--line);padding:18px 0}
+  summary{cursor:pointer;list-style:none;font-size:13px;letter-spacing:.04em}
+  summary::-webkit-details-marker{display:none}
+  summary:after{content:"+";float:right;font-size:18px}
+  details[open] summary:after{content:"−"}
+  details p{margin-top:15px;color:var(--muted);font-size:13px;max-width:560px}
+  .detail-table{margin-top:10px}
+  .detail-table div{display:flex;justify-content:space-between;gap:25px;padding:9px 0;font-size:12px}
+  .detail-table span{color:var(--muted)}
+  .detail-table b{text-align:right;font-weight:500}
+
+
+  /* WELCOME HERO — inspired by the editorial split-card language of luxury beauty sites */
+  .welcome-hero{
+    margin:0;
+    padding:28px 2.2vw 18px;
+    display:grid;
+    grid-template-columns:1.55fr .78fr;
+    gap:0;
+    background:var(--paper);
+  }
+  .welcome-photo{
+    min-height:78vh;
+    overflow:hidden;
+    border-radius:22px 0 0 22px;
+    background:#ddd;
+  }
+  .welcome-photo img{
+    width:100%;height:100%;display:block;object-fit:cover;
+    object-position:center center;
+  }
+  .welcome-panel{
+    min-height:78vh;
+    border-radius:0 22px 22px 0;
+    background:#efe9eb;
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    padding:7vw 5.5vw;
+  }
+  .welcome-panel h1{
+    color:var(--ink);
+    font-family:"DM Sans",Arial,sans-serif;
+    font-size:clamp(52px,5.4vw,86px);
+    line-height:.95;
+    letter-spacing:-.055em;
+    margin:15px 0 22px;
+    font-weight:500;
+  }
+  .welcome-panel p{max-width:420px;color:#61595a;font-size:16px}
+  .outline-btn{
+    display:inline-block;
+    align-self:flex-start;
+    margin-top:27px;
+    padding:12px 20px;
+    border:1px solid rgba(38,34,34,.62);
+    border-radius:30px;
+    font-size:11px;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+    transition:.25s;
+  }
+  .outline-btn:hover{background:var(--ink);color:white}
+  .welcome-mark{margin-top:70px;color:#7d7375;font-size:9px;letter-spacing:.14em}
+  .feature-split{
+    margin:0;
+    padding:28px 2.2vw;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    background:#f3eee9;
+  }
+  .feature-split.reverse{background:var(--paper)}
+  .feature-split.reverse .feature-photo{order:2}
+  .feature-photo{
+    min-height:640px;
+    background:linear-gradient(145deg,#dfc1c1,#b68b91);
+    border-radius:20px 0 0 20px;
+    display:flex;justify-content:center;align-items:center;flex-direction:column;
+    text-align:center;color:rgba(255,255,255,.82);overflow:hidden;
+    background-size:cover;background-position:center;
+  }
+  .feature-photo.has-photo>span,.feature-photo.has-photo>small{display:none}
+  .feature-photo small{font-size:9px;margin-top:6px;letter-spacing:.08em}
+  .feature-copy{
+    background:#f3eee9;
+    border-radius:0 20px 20px 0;
+    padding:7vw 6vw;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .feature-split.reverse .feature-copy{
+    background:#f8f5f1;
+    border-radius:20px 0 0 20px;
+  }
+  .feature-copy h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(58px,6.5vw,100px);
+    line-height:.82;
+    font-weight:500;
+    margin:15px 0;
+  }
+  .feature-sub{font-size:12px;letter-spacing:.17em;text-transform:uppercase;margin-bottom:16px}
+  .feature-copy>p:not(.feature-sub){max-width:500px;color:var(--muted)}
+  .dark-outline{border-color:rgba(38,34,34,.5)}
+  .feature-list{margin-top:45px;border-top:1px solid var(--line)}
+  .feature-list div{display:grid;grid-template-columns:45px 1fr;padding:16px 0;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.12em}
+  .feature-list b{font-weight:500;color:var(--muted)}
+  .note-garden{
+    background:#eee8e4;
+    padding:120px 9vw 100px;
+    text-align:center;
+  }
+  .note-text{
+    max-width:980px;
+    margin:25px auto 24px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(36px,4.2vw,64px);
+    line-height:1.04;
+  }
+  .note-sign{font-size:10px;letter-spacing:.18em;color:var(--muted)}
+  .values-feature{
+    margin:0;
+    padding:28px 2.2vw;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    background:var(--paper);
+  }
+  .values-art{
+    min-height:610px;
+    border-radius:20px 0 0 20px;
+    background:linear-gradient(145deg,#f1eeee,#d5c6c3);
+    display:flex;justify-content:center;align-items:center;flex-direction:column;
+    color:#8d8585;letter-spacing:.1em;font-size:11px;
+    background-size:cover;background-position:center;
+  }
+  .values-art.has-photo>span,.values-art.has-photo>small{display:none}
+  .values-art small{font-size:9px;margin-top:7px}
+  .values-panel{
+    background:#f2eee9;
+    border-radius:0 20px 20px 0;
+    padding:6vw 5vw;
+  }
+  .values-panel h2{
+    font-family:"Cormorant Garamond",serif;font-weight:500;
+    font-size:clamp(58px,6.2vw,90px);line-height:.84;margin:15px 0 22px
+  }
+  .values-panel>p{max-width:500px;color:var(--muted);margin-bottom:40px}
+  .values-panel details{padding:20px 0}
+  .values-panel summary{font-size:18px;text-transform:lowercase}
+  .values-panel details p{max-width:560px}
+  .formula-section{background:#f0ede8}
+  .formula-head{max-width:1050px;margin:0 auto 50px;text-align:left}
+  .formula-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .formula-cards article{min-width:0}
+  .formula-photo{
+    aspect-ratio:1/1;
+    background:linear-gradient(145deg,#f9f8f7,#ddd5d1);
+    border-radius:18px;
+    display:flex;justify-content:center;align-items:center;flex-direction:column;
+    text-align:center;color:#8b8280;letter-spacing:.12em;font-size:10px;
+    background-size:cover;background-position:center;overflow:hidden
+  }
+  .formula-photo.has-photo>span,.formula-photo.has-photo>small{display:none}
+  .formula-photo small{font-size:8px;margin-top:5px}
+  .formula-cards h3{font-size:12px;letter-spacing:.1em;margin:16px 0 6px}
+  .formula-cards p{color:var(--muted);font-size:12px}
+  .chore-pillars{background:#fffdfb;text-align:center}
+  .pillar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:50px}
+  .pillar-grid article{
+    min-height:360px;background:#77716c;color:white;border-radius:18px;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;padding:35px
+  }
+  .pillar-number{font-size:10px;letter-spacing:.15em;opacity:.75;margin-bottom:45px}
+  .pillar-grid h3{font-size:17px;letter-spacing:.1em}
+  .pillar-grid p{font-size:12px;line-height:1.55;margin-top:14px;max-width:220px;color:#f3efed}
+
+  /* RESPONSIVE */
+
+
+  @media(max-width:800px){
+    .welcome-hero,.feature-split,.values-feature{grid-template-columns:1fr;padding:15px 3.5vw}
+    .welcome-photo{min-height:66vh;border-radius:18px 18px 0 0}
+    .welcome-panel{min-height:430px;border-radius:0 0 18px 18px;padding:12vw 8vw}
+    .welcome-panel h1{font-size:clamp(48px,15vw,70px)}
+    .welcome-mark{margin-top:45px}
+    .feature-photo{min-height:520px;border-radius:18px 18px 0 0}
+    .feature-split.reverse .feature-photo{order:1}
+    .feature-copy,.feature-split.reverse .feature-copy{border-radius:0 0 18px 18px;padding:12vw 8vw}
+    .values-art{min-height:480px;border-radius:18px 18px 0 0}
+    .values-panel{border-radius:0 0 18px 18px;padding:11vw 8vw}
+    .formula-cards{grid-template-columns:1fr 1fr}
+    .pillar-grid{grid-template-columns:1fr 1fr}
+  }
+
+  @media(max-width:800px){
+    .bloom-product-grid{grid-template-columns:1fr;gap:40px}
+    .photo-slot.tall{min-height:520px}
+  }
+  @media(max-width:800px){
+    .topbar{height:70px;grid-template-columns:1fr auto 1fr;padding:0 18px}
+    .brand{font-size:15px}
+    .brand small{font-size:7px}
+    .icons{gap:12px;font-size:17px}
+    .locale{font-size:10px}
+    .nav{gap:14px;font-size:10px;overflow:auto;justify-content:flex-start;padding-left:18px}
+    section{padding:75px 5vw}
+    .section-head{display:block}
+    .intro{margin-top:20px}
+    .products{grid-template-columns:1fr 1fr}
+    .product{min-height:420px}
+    .product-photo{height:290px}
+    .chore-grid,.story{grid-template-columns:1fr;gap:35px}
+    .corgi-card,.story-image{min-height:450px}
+    .footer-top{grid-template-columns:1fr 1fr}
+    .footer-brand{grid-column:1/-1}
+    .copyright{display:block}
+    .copyright span{display:block;margin-top:8px}
+  }
+  @media(max-width:500px){
+    .products{grid-template-columns:1fr}
+    .product-photo{height:360px}
+    .chore-links{grid-template-columns:1fr}
+    .footer-top{grid-template-columns:1fr}
+  }
+
+
+  /* =========================================================
+     FRAMED EDITORIAL LAYOUT
+     Inspired by the rounded, card-based mobile framing in the
+     reference image: generous white margins, large image cards,
+     rounded corners, and text layered over imagery.
+     ========================================================= */
+  :root{
+    --frame-gap:28px;
+    --frame-radius:22px;
+    --frame-bg:#f7f5f3;
+  }
+
+  body{background:#fff;color:var(--ink)}
+
+  header{
+    margin:14px 2.2vw 0;
+    border:1px solid rgba(38,34,34,.08);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 4px 18px rgba(38,34,34,.035);
+  }
+
+  .marquee{
+    margin:0 2.2vw var(--frame-gap);
+    border:1px solid var(--line);
+    border-radius:18px;
+  }
+
+  /* Main hero becomes one large image card with the copy living inside it. */
+  .welcome-hero{
+    margin:var(--frame-gap) 2.2vw;
+    padding:0;
+    display:block;
+    position:relative;
+    min-height:78vh;
+    border-radius:var(--frame-radius);
+    overflow:hidden;
+    background:#ddd;
+    isolation:isolate;
+  }
+
+  .welcome-photo{
+    position:absolute;
+    inset:0;
+    min-height:100%;
+    border-radius:0;
+    background:#ddd;
+  }
+
+  .welcome-photo img{
+    width:100%;
+    height:100%;
+    min-height:78vh;
+    display:block;
+    object-fit:cover;
+    object-position:center center;
+  }
+
+  .welcome-panel{
+    position:absolute;
+    inset:0;
+    min-height:100%;
+    border-radius:0;
+    padding:clamp(28px,5vw,72px);
+    display:flex;
+    justify-content:flex-end;
+    flex-direction:column;
+    align-items:flex-start;
+    color:#fff;
+    background:linear-gradient(180deg,
+      rgba(20,16,17,0) 38%,
+      rgba(20,16,17,.06) 48%,
+      rgba(20,16,17,.70) 100%);
+  }
+
+  .welcome-panel .kicker{color:rgba(255,255,255,.86)}
+  .welcome-panel h1{
+    color:#fff;
+    font-family:"DM Sans",Arial,sans-serif;
+    font-size:clamp(42px,6.5vw,88px);
+    line-height:.96;
+    letter-spacing:-.055em;
+    margin:14px 0 20px;
+  }
+  .welcome-panel p{color:rgba(255,255,255,.9);max-width:500px}
+  .welcome-panel .outline-btn{
+    color:#fff;
+    border-color:rgba(255,255,255,.9);
+    margin-top:24px;
+  }
+  .welcome-panel .outline-btn:hover{background:#fff;color:var(--ink)}
+  .welcome-mark{color:rgba(255,255,255,.72)}
+
+  /* Every major page section is now presented as a separate editorial card. */
+  main > section:not(.welcome-hero){
+    margin:0 2.2vw var(--frame-gap);
+    border-radius:var(--frame-radius);
+    overflow:hidden;
+    box-shadow:0 2px 14px rgba(38,34,34,.025);
+  }
+
+  .feature-split{
+    margin:0 2.2vw var(--frame-gap);
+    padding:0;
+    border-radius:var(--frame-radius);
+    overflow:hidden;
+  }
+
+  .feature-photo{border-radius:0;min-height:680px}
+  .feature-copy{border-radius:0}
+  .feature-split.reverse .feature-copy{border-radius:0}
+  .feature-split.reverse .feature-photo{border-radius:0}
+
+  .garden{background:#f3efeb}
+  .bloom-detail{background:#fffaf7}
+  .chore{background:#f4eee9}
+  .chore-pillars{background:#fffdfb}
+  .story{background:#f7f3ef}
+  .editorial{background:#e7d8d7}
+  .promise{background:var(--ink)}
+
+  .story-image{border-radius:18px}
+  .corgi-card{border-radius:18px}
+
+  footer{
+    margin:0 2.2vw 22px;
+    border-radius:var(--frame-radius);
+    overflow:hidden;
+  }
+
+  @media(max-width:800px){
+    :root{--frame-gap:18px;--frame-radius:20px}
+
+    header{
+      margin:10px 3.5vw 0;
+      border-radius:16px;
+    }
+
+    .welcome-hero{
+      margin:18px 3.5vw;
+      min-height:calc(100svh - 125px);
+      border-radius:20px;
+    }
+
+    .welcome-photo img{
+      min-height:calc(100svh - 125px);
+      object-position:center center;
+    }
+
+    .welcome-panel{
+      padding:32px 22px 26px;
+      background:linear-gradient(180deg,
+        rgba(20,16,17,0) 35%,
+        rgba(20,16,17,.08) 46%,
+        rgba(20,16,17,.82) 100%);
+    }
+
+    .welcome-panel h1{font-size:clamp(42px,12vw,66px);margin:10px 0 14px}
+    .welcome-panel p{font-size:14px;max-width:340px}
+    .welcome-panel .outline-btn{margin-top:20px}
+    .welcome-mark{margin-top:28px;font-size:8px}
+
+    main > section:not(.welcome-hero){
+      margin:0 3.5vw var(--frame-gap);
+      border-radius:20px;
+    }
+
+    .feature-split{
+      margin:0 3.5vw var(--frame-gap);
+      border-radius:20px;
+    }
+
+    .feature-photo{min-height:520px;border-radius:0}
+    .feature-copy,.feature-split.reverse .feature-copy{border-radius:0}
+    .feature-split.reverse .feature-photo{border-radius:0}
+
+    .story-image,.corgi-card{border-radius:14px}
+
+    footer{margin:0 3.5vw 18px;border-radius:20px}
+  }
+
+/* FINAL FRAMED HERO */
+.welcome-hero.framed-hero{display:block;padding:0 3.5vw;background:transparent;max-width:1400px;margin:0 auto;}
+.hero-media{position:relative;overflow:hidden;border-radius:28px;min-height:690px;background:#c9b5aa;}
+.hero-media>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 48%;display:block;}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 38%,rgba(0,0,0,.60) 100%);}
+.hero-copy{position:absolute;left:48px;bottom:44px;z-index:2;color:#fff;max-width:650px;}
+.hero-copy .kicker{color:rgba(255,255,255,.88);letter-spacing:.24em;}
+.hero-copy h1{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(54px,7vw,100px);line-height:.91;margin:15px 0 20px;letter-spacing:-.035em;}
+.hero-copy p{font-size:17px;line-height:1.55;max-width:510px;color:rgba(255,255,255,.9);margin:0 0 24px;}
+.hero-copy .outline-btn{border-color:#fff;color:#fff;}
+.hero-mark{position:absolute;right:38px;bottom:38px;z-index:2;color:#fff;font-size:11px;letter-spacing:.32em;line-height:1.8;text-align:right;}
+@media(max-width:700px){.hero-media{min-height:calc(100svh - 130px);border-radius:20px}.hero-copy{left:26px;right:22px;bottom:28px}.hero-copy h1{font-size:clamp(47px,14vw,72px)}.hero-copy p{font-size:14px;max-width:330px}.hero-mark{right:22px;bottom:25px;font-size:8px}.hero-copy .outline-btn{font-size:11px;padding:12px 19px}.welcome-hero.framed-hero{padding:0 18px}}
+
+/* Shared multi-page navigation */
+.nav a[aria-current="page"]:after{width:100%;}
+.page-intro{padding:95px 6vw 55px;background:var(--paper);}
+.page-intro .title{margin-top:12px;}
+.page-intro p{max-width:560px;color:var(--muted);margin-top:22px;font-size:15px;}
+@media(max-width:800px){.page-intro{padding:70px 5vw 40px;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="locale">IN · ₹</div>
+    <a class="brand" href="index.html">KEÑI CHORLÊT<small>BLOOM OUTSIDE THE LINES.</small></a>
+    <div class="icons" aria-label="site actions"><span>♡</span><span>♙</span><span>⌕</span><span>♧</span></div>
+  </div>
+  <nav class="nav" aria-label="Primary navigation">
+    <a href="shop.html">shop</a>
+    <a href="garden.html">the garden</a>
+    <a href="chore.html">choré</a>
+    <a href="our-story.html">our story</a>
+    <a href="journal.html">journal</a>
+  </nav>
+</header>
+<main>
+<section class="page-intro"><div class="kicker">the community</div><h1 class="title">Welcome to<br>CHORÉ.</h1><p>Those who bloom outside the lines.</p></section><section class="chore" id="chore">
+    <div class="chore-grid">
+      <div class="corgi-card">
+        <span>CHORÉ · our little companion</span>
+      </div>
+
+      <div class="chore-copy">
+        <div class="kicker">the community</div>
+        <h2>CHORÉ</h2>
+        <h3>Those who bloom outside the lines.</h3>
+        <p>CHORÉ is the little world around KEÑI CHORLÊT — a community for creativity, beauty rituals, stories, and all the things that make your garden yours. And somewhere in that world, there's our little corgi.</p>
+
+        <div class="chore-links">
+          <a class="chore-link" href="#">CHORÉ CLUB <span>→</span></a>
+          <a class="chore-link" href="#">THE GARDEN <span>→</span></a>
+          <a class="chore-link" href="#">CHORÉ STORIES <span>→</span></a>
+          <a class="chore-link" href="#">MEET THE CORGI <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </section><section class="chore-pillars">
+    <div class="kicker">inside choré</div>
+    <h2 class="title">A little world<br>of its own.</h2>
+    <div class="pillar-grid">
+      <article><div class="pillar-number">01</div><h3>THE GARDEN</h3><p>Discover the six blooms and the stories behind them.</p></article>
+      <article><div class="pillar-number">02</div><h3>CHORÉ STORIES</h3><p>A place for community moments, rituals and creativity.</p></article>
+      <article><div class="pillar-number">03</div><h3>THE CORGI</h3><p>Our little companion, appearing throughout the CHORÉ world.</p></article>
+      <article><div class="pillar-number">04</div><h3>CHORÉ CLUB</h3><p>Launches, little surprises and moments made for the community.</p></article>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">KEÑI CHORLÊT</div>
+      <p style="margin-top:12px">BLOOM OUTSIDE THE LINES.</p>
+    </div>
+
+    <div>
+      <h4>Shop</h4>
+      <a href="shop.html">Lustre Veil™</a>
+      <a href="garden.html">The Garden</a>
+      <a href="#">New</a>
+    </div>
+
+    <div>
+      <h4>Discover</h4>
+      <a href="chore.html">CHORÉ</a>
+      <a href="our-story.html">Our Story</a>
+      <a href="journal.html">Journal</a>
+    </div>
+
+    <div>
+      <h4>Help</h4>
+      <a href="#">Contact</a>
+      <a href="#">Shipping</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+
+  <div class="copyright">
+    <span>© 2026 KEÑI CHORLÊT. All rights reserved.</span>
+    <span>COMPLETE YOUR GARDEN.</span>
+  </div>
+</footer>
+<script>
+
+  // PHOTO SLOTS:
+  // Drop your image files into the "images" folder using the exact names
+  // shown inside each photo slot. The site will automatically show them.
+  document.querySelectorAll('.photo-slot[data-image]').forEach(slot => {
+    const src = slot.dataset.image;
+    const img = new Image();
+    img.onload = () => {
+      slot.style.backgroundImage = `url("${src}")`;
+      slot.classList.add('has-photo');
+    };
+    img.onerror = () => {};
+    img.src = src;
+  });
+
+  // Small luxury-style scroll reveal
+  const items = document.querySelectorAll('.product, .story-copy, .corgi-card');
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.style.opacity='1';
+        entry.target.style.transform='translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:.12});
+
+  items.forEach(item=>{
+    item.style.opacity='0';
+    item.style.transform='translateY(18px)';
+    item.style.transition='opacity .7s ease, transform .7s ease';
+    observer.observe(item);
+  });
+</script>
+</body>
+</html>
