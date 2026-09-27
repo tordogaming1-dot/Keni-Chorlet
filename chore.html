@@ -810,6 +810,230 @@
 .page-intro .title{margin-top:12px;}
 .page-intro p{max-width:560px;color:var(--muted);margin-top:22px;font-size:15px;}
 @media(max-width:800px){.page-intro{padding:70px 5vw 40px;}}
+
+/* =========================================================
+   KEÑI CHORLÊT — INTERACTION LAYER
+   Additive only: preserves existing visual system.
+   ========================================================= */
+:root{
+  --kc-ease:cubic-bezier(.22,.61,.36,1);
+  --kc-fast:320ms;
+  --kc-slow:700ms;
+}
+
+/* Global motion */
+a,button,.product,.shade-card,.nav a,.icons span,.bloom-menu-item,.mega-menu a{
+  transition:
+    color var(--kc-fast) var(--kc-ease),
+    background-color var(--kc-fast) var(--kc-ease),
+    border-color var(--kc-fast) var(--kc-ease),
+    opacity var(--kc-fast) var(--kc-ease),
+    transform var(--kc-fast) var(--kc-ease);
+}
+header{
+  transition:transform 560ms var(--kc-ease), box-shadow 420ms var(--kc-ease);
+  will-change:transform;
+}
+header.kc-nav-hidden{transform:translateY(-105%);}
+
+/* Mega menus */
+.kc-mega{
+  position:absolute;
+  top:100%;
+  left:0;
+  width:100%;
+  z-index:50;
+  background:rgba(255,253,251,.98);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 18px 45px rgba(38,34,34,.07);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translateY(-10px);
+  transition:opacity 380ms var(--kc-ease),transform 380ms var(--kc-ease),visibility 380ms;
+}
+.kc-mega.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateY(0);
+}
+.kc-mega-inner{
+  max-width:1200px;
+  margin:0 auto;
+  padding:28px 5vw 34px;
+}
+.kc-mega-label{
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:18px;
+}
+.kc-mega-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+}
+.kc-mega-grid a{
+  background:var(--paper);
+  padding:22px 20px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:26px;
+  line-height:1;
+}
+.kc-mega-grid a:hover{
+  background:#f4eeeb;
+  transform:translateY(-2px);
+}
+.kc-garden-grid{grid-template-columns:repeat(6,1fr);}
+.kc-garden-grid a{font-size:21px;min-height:82px;display:flex;align-items:flex-end;}
+.kc-mobile-toggle{display:none}
+
+/* Scroll zoom */
+.kc-scroll-zoom{
+  transform:scale(var(--kc-zoom,1.02));
+  transform-origin:center center;
+  transition:transform 850ms var(--kc-ease);
+  will-change:transform;
+}
+.kc-scroll-zoom.kc-zoom-out{--kc-zoom:1.005;}
+.kc-scroll-zoom.kc-zoom-in{--kc-zoom:1.025;}
+.hero-media,.photo-slot,.editorial{overflow:hidden;}
+.hero-media img{transition:transform 850ms var(--kc-ease);will-change:transform;}
+
+/* Editorial reveals */
+.kc-reveal{
+  opacity:0;
+  transform:translate3d(0,22px,0);
+  transition:opacity 760ms var(--kc-ease),transform 760ms var(--kc-ease);
+}
+.kc-reveal.kc-visible{
+  opacity:1;
+  transform:translate3d(0,0,0);
+}
+.kc-reveal[data-kc-delay="1"]{transition-delay:90ms}
+.kc-reveal[data-kc-delay="2"]{transition-delay:180ms}
+.kc-reveal[data-kc-delay="3"]{transition-delay:270ms}
+
+/* Product image/model crossfade */
+.product-photo.kc-image-swap{isolation:isolate;}
+.product-photo .kc-product-visual,
+.product-photo .kc-model-visual{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  opacity:0;
+  transition:opacity 650ms var(--kc-ease),transform 850ms var(--kc-ease);
+  pointer-events:none;
+}
+.product-photo .kc-product-visual{opacity:1;z-index:1;}
+.product-photo .kc-model-visual{z-index:2;transform:scale(1.015);}
+.product-photo.kc-hovering .kc-product-visual{opacity:0;}
+.product-photo.kc-hovering .kc-model-visual{opacity:1;transform:scale(1);}
+
+/* Search overlay */
+.kc-search-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(255,253,251,.97);
+  backdrop-filter:blur(16px);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity 420ms var(--kc-ease),visibility 420ms;
+  overflow:auto;
+}
+.kc-search-overlay.is-open{opacity:1;visibility:visible;pointer-events:auto;}
+.kc-search-shell{max-width:1100px;margin:0 auto;padding:7vh 6vw 8vh;}
+.kc-search-top{display:flex;align-items:center;justify-content:space-between;gap:30px;margin-bottom:55px;}
+.kc-search-kicker{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.kc-search-close{border:0;background:none;cursor:pointer;font-size:28px;line-height:1;padding:5px;}
+.kc-search-input{
+  width:100%;
+  border:0;
+  border-bottom:1px solid var(--line);
+  background:transparent;
+  outline:none;
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(42px,7vw,84px);
+  color:var(--ink);
+  padding:8px 0 18px;
+}
+.kc-search-input::placeholder{color:#aaa0a0;}
+.kc-search-results{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.kc-search-result{
+  display:block;padding:24px 20px;border:1px solid var(--line);background:var(--paper);
+}
+.kc-search-result:hover{transform:translateY(-3px);background:#f6f0ed;}
+.kc-search-result-name{font-family:"Cormorant Garamond",serif;font-size:30px;}
+.kc-search-result-meta{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-top:7px;}
+.kc-search-empty{grid-column:1/-1;color:var(--muted);font-size:14px;padding:20px 0;}
+
+/* Continuous editorial marquee */
+.kc-marquee{
+  width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:var(--paper);
+}
+.kc-marquee-track{
+  display:inline-flex;
+  width:max-content;
+  min-width:100%;
+  animation:kcMarquee 34s linear infinite;
+}
+.kc-marquee-group{display:flex;align-items:center;flex:none;}
+.kc-marquee-item{
+  display:inline-flex;align-items:center;gap:30px;
+  padding:17px 30px;
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(24px,3vw,42px);
+  letter-spacing:.02em;
+}
+.kc-marquee-dot{font-family:"DM Sans",sans-serif;font-size:10px;color:var(--muted);letter-spacing:.2em;}
+@keyframes kcMarquee{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+
+/* Touch product behavior */
+@media (hover:none){
+  .product-photo.kc-touching .kc-product-visual{opacity:0;}
+  .product-photo.kc-touching .kc-model-visual{opacity:1;transform:scale(1);}
+}
+@media(max-width:800px){
+  .kc-mega{position:fixed;top:82px;max-height:calc(100vh - 82px);overflow:auto;}
+  .kc-mega-inner{padding:22px 5vw 28px;}
+  .kc-mega-grid,.kc-garden-grid{grid-template-columns:1fr 1fr;}
+  .kc-garden-grid a{min-height:64px;font-size:20px;}
+  .kc-search-results{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:500px){
+  .kc-search-shell{padding:5vh 6vw 7vh;}
+  .kc-search-results{grid-template-columns:1fr;}
+  .kc-marquee-item{padding:14px 22px;font-size:27px;}
+  .kc-mega-grid{grid-template-columns:1fr;}
+}
+
+/* Accessibility / reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+  .kc-nav-hidden{transform:none!important;}
+  .kc-reveal{opacity:1!important;transform:none!important;}
+  .kc-scroll-zoom{transform:none!important;}
+}
+
 </style>
 </head>
 <body>
@@ -928,5 +1152,218 @@
     observer.observe(item);
   });
 </script>
+
+<script>
+/* =========================================================
+   KEÑI CHORLÊT — INTERACTION LAYER
+   ========================================================= */
+(function(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const header = document.querySelector('header');
+
+  /* Header: hide on downward scroll, show on upward scroll, always visible at top. */
+  if(header && !reduceMotion){
+    let lastY = Math.max(0, window.scrollY);
+    let ticking = false;
+    const updateHeader = () => {
+      const y = window.scrollY;
+      if(y <= 8){
+        header.classList.remove('kc-nav-hidden');
+      }else if(Math.abs(y-lastY) > 3){
+        if(y > lastY + 3) header.classList.add('kc-nav-hidden');
+        else if(y < lastY - 3) header.classList.remove('kc-nav-hidden');
+      }
+      lastY = y;
+      ticking = false;
+    };
+    window.addEventListener('scroll',()=>{
+      if(!ticking){requestAnimationFrame(updateHeader);ticking=true;}
+    },{passive:true});
+  }
+
+  /* Build SHOP + GARDEN mega menus without changing existing nav links. */
+  const nav = document.querySelector('.nav');
+  if(nav){
+    const links = Array.from(nav.querySelectorAll('a'));
+    const shopLink = links.find(a => a.textContent.trim().toLowerCase()==='shop');
+    const gardenLink = links.find(a => a.textContent.trim().toLowerCase().includes('garden'));
+
+    function makeMenu(type, anchor){
+      if(!anchor || document.querySelector('.kc-mega[data-kc-menu="'+type+'"]')) return;
+      const menu=document.createElement('div');
+      menu.className='kc-mega';
+      menu.dataset.kcMenu=type;
+      const inner=document.createElement('div');
+      inner.className='kc-mega-inner';
+      const label=document.createElement('div');
+      label.className='kc-mega-label';
+      label.textContent=type==='shop'?'SHOP':'THE GARDEN';
+      const grid=document.createElement('div');
+      grid.className='kc-mega-grid'+(type==='garden'?' kc-garden-grid':'');
+      const items=type==='shop'
+        ? [['PEPTIDE LIP GLOSS','shop.html#garden'],['THE GARDEN','garden.html'],['CHORÉ','chore.html']]
+        : [['Bloom','shop.html#bloom'],['Rose Promise','shop.html#garden'],['Petal Kiss','shop.html#garden'],['Peony Muse','shop.html#garden'],['Orchid Veil','shop.html#garden'],['Camellia Veil','shop.html#garden']];
+      items.forEach(([name,href])=>{
+        const a=document.createElement('a'); a.href=href; a.textContent=name;
+        if(type==='garden') a.setAttribute('data-bloom',name);
+        grid.appendChild(a);
+      });
+      inner.append(label,grid); menu.appendChild(inner); document.body.appendChild(menu);
+
+      let closeTimer;
+      const open=()=>{clearTimeout(closeTimer); menu.classList.add('is-open'); anchor.setAttribute('aria-expanded','true');};
+      const close=()=>{clearTimeout(closeTimer);closeTimer=setTimeout(()=>{menu.classList.remove('is-open');anchor.setAttribute('aria-expanded','false');},110);};
+      anchor.setAttribute('aria-haspopup','true');anchor.setAttribute('aria-expanded','false');
+      anchor.addEventListener('mouseenter',open); anchor.addEventListener('mouseleave',close);
+      menu.addEventListener('mouseenter',open); menu.addEventListener('mouseleave',close);
+      anchor.addEventListener('click',(e)=>{
+        if(window.matchMedia('(hover: none)').matches || window.innerWidth<=800){
+          e.preventDefault();
+          const opening=!menu.classList.contains('is-open');
+          document.querySelectorAll('.kc-mega.is-open').forEach(m=>m.classList.remove('is-open'));
+          menu.classList.toggle('is-open',opening);
+          anchor.setAttribute('aria-expanded',String(opening));
+        }
+      });
+    }
+    makeMenu('shop',shopLink); makeMenu('garden',gardenLink);
+  }
+
+  /* Search overlay: works on every page and searches the six actual blooms. */
+  const icons = document.querySelector('.icons');
+  if(icons){
+    const spans=Array.from(icons.querySelectorAll('span'));
+    const searchTrigger=spans[2] || spans.find(s=>/⌕|search/i.test(s.textContent));
+    if(searchTrigger){
+      searchTrigger.setAttribute('role','button');
+      searchTrigger.setAttribute('tabindex','0');
+      searchTrigger.setAttribute('aria-label','Search');
+      const overlay=document.createElement('div');
+      overlay.className='kc-search-overlay';
+      overlay.innerHTML=`<div class="kc-search-shell">
+        <div class="kc-search-top"><div class="kc-search-kicker">Search KEÑI CHORLÊT</div><button class="kc-search-close" aria-label="Close search">×</button></div>
+        <input class="kc-search-input" type="search" placeholder="Search the garden…" autocomplete="off" aria-label="Search products">
+        <div class="kc-search-results"></div>
+      </div>`;
+      document.body.appendChild(overlay);
+      const input=overlay.querySelector('.kc-search-input'), results=overlay.querySelector('.kc-search-results');
+      const products=[
+        ['Bloom','Lily · Lustre Veil™','shop.html#bloom'],
+        ['Rose Promise','Peptide Lip Gloss','shop.html#garden'],
+        ['Petal Kiss','Peptide Lip Gloss','shop.html#garden'],
+        ['Peony Muse','Peptide Lip Gloss','shop.html#garden'],
+        ['Orchid Veil','Peptide Lip Gloss','shop.html#garden'],
+        ['Camellia Veil','Peptide Lip Gloss','shop.html#garden']
+      ];
+      const render=(q='')=>{
+        const query=q.trim().toLowerCase();
+        const matches=products.filter(p=>!query || p.join(' ').toLowerCase().includes(query));
+        results.innerHTML=matches.length ? matches.map(p=>`<a class="kc-search-result" href="${p[2]}"><div class="kc-search-result-name">${p[0]}</div><div class="kc-search-result-meta">${p[1]}</div></a>`).join('') : '<div class="kc-search-empty">No matching blooms found.</div>';
+      };
+      const open=()=>{overlay.classList.add('is-open');document.body.style.overflow='hidden';setTimeout(()=>input.focus(),180);render();};
+      const close=()=>{overlay.classList.remove('is-open');document.body.style.overflow='';};
+      searchTrigger.addEventListener('click',open);
+      searchTrigger.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+      overlay.querySelector('.kc-search-close').addEventListener('click',close);
+      overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+      document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+      input.addEventListener('input',()=>render(input.value));
+    }
+  }
+
+  /* Scroll zoom: selected large visual surfaces only. */
+  const zoomEls=[...document.querySelectorAll('.hero-media img,.editorial,.photo-slot.tall,.story-image,.values-art')];
+  zoomEls.forEach(el=>el.classList.add('kc-scroll-zoom'));
+  if(!reduceMotion && zoomEls.length){
+    let lastY=window.scrollY;
+    let raf=0;
+    window.addEventListener('scroll',()=>{
+      if(raf)return;
+      raf=requestAnimationFrame(()=>{
+        const down=window.scrollY>lastY+1;
+        const up=window.scrollY<lastY-1;
+        zoomEls.forEach(el=>{
+          el.classList.toggle('kc-zoom-out',down);
+          el.classList.toggle('kc-zoom-in',up);
+        });
+        lastY=window.scrollY; raf=0;
+      });
+    },{passive:true});
+  }
+
+  /* Add restrained reveal behavior, preserving existing revealed elements. */
+  const revealTargets=[...document.querySelectorAll('main > section, main > section > *, .feature-split, .products > .product, .photo-slot, footer')];
+  const unique=[...new Set(revealTargets)].filter(el=>{
+    if(!el || el.closest('header') || el.classList.contains('kc-mega')) return false;
+    return !el.classList.contains('kc-search-overlay');
+  });
+  unique.forEach((el,i)=>{
+    if(el.classList.contains('product') && el.style.opacity==='0') return;
+    el.classList.add('kc-reveal');
+    if(i%4) el.dataset.kcDelay=String(i%4);
+  });
+  if(reduceMotion){
+    unique.forEach(el=>el.classList.add('kc-visible'));
+  }else if('IntersectionObserver' in window){
+    const ro=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){entry.target.classList.add('kc-visible');ro.unobserve(entry.target);}
+      });
+    },{threshold:.08,rootMargin:'0px 0px -7% 0px'});
+    unique.forEach(el=>ro.observe(el));
+  }else unique.forEach(el=>el.classList.add('kc-visible'));
+
+  /* Product/model crossfade. Uses model assets when supplied; never invents imagery. */
+  document.querySelectorAll('.product-photo').forEach(photo=>{
+    const product=photo.closest('.product');
+    if(!product) return;
+    const name=(product.querySelector('.product-name')?.textContent||'').trim();
+    const slug=name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+    const modelCandidates=[
+      `images/${slug}-model.jpg`,
+      `images/${slug}-campaign.jpg`,
+      `images/${slug}-model.webp`,
+      `images/${slug}-campaign.webp`
+    ];
+    const model=document.createElement('img');
+    model.className='kc-model-visual';
+    let idx=0, loaded=false;
+    const tryNext=()=>{
+      if(idx>=modelCandidates.length)return;
+      model.src=modelCandidates[idx++];
+    };
+    model.onload=()=>{loaded=true;photo.classList.add('kc-image-swap');photo.appendChild(model);};
+    model.onerror=tryNext;
+    tryNext();
+    if(!loaded && !model.complete){/* waits for supplied asset */}
+    const existing=photo.querySelector('img:not(.kc-model-visual)');
+    if(existing) existing.classList.add('kc-product-visual');
+    else{
+      const visual=document.createElement('div');
+      visual.className='kc-product-visual';
+      visual.setAttribute('aria-hidden','true');
+      visual.style.background=getComputedStyle(photo).background;
+      photo.appendChild(visual);
+    }
+    const enter=()=>{if(loaded)photo.classList.add('kc-hovering');};
+    const leave=()=>photo.classList.remove('kc-hovering');
+    photo.closest('.product').addEventListener('mouseenter',enter);
+    photo.closest('.product').addEventListener('mouseleave',leave);
+    photo.closest('.product').addEventListener('touchstart',()=>{
+      if(loaded)photo.classList.toggle('kc-touching');
+    },{passive:true});
+  });
+
+  /* Homepage/editorial marquee: replace the existing static marquee with a seamless loop. */
+  const oldMarquee=document.querySelector('.marquee');
+  if(oldMarquee && !oldMarquee.classList.contains('kc-marquee')){
+    const m=document.createElement('div'); m.className='kc-marquee'; m.setAttribute('aria-label','KEÑI CHORLÊT editorial marquee');
+    const track=document.createElement('div'); track.className='kc-marquee-track';
+    const group=()=>{const g=document.createElement('div');g.className='kc-marquee-group';['KEÑI CHORLÊT','BLOOM OUTSIDE THE LINES.','KEÑI CHORLÊT','BLOOM OUTSIDE THE LINES.'].forEach((x,i)=>{const s=document.createElement('span');s.className='kc-marquee-item';s.innerHTML=x+' <span class="kc-marquee-dot">✦</span>';g.appendChild(s);});return g;};
+    track.append(group(),group()); m.appendChild(track); oldMarquee.replaceWith(m);
+  }
+})();
+</script>
+
 </body>
 </html>
