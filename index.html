@@ -1092,6 +1092,73 @@ header.kc-nav-hidden{transform:translateY(-105%);}
 }
 
 </style>
+<style>
+/* KEÑI CHORLÊT — header structure refinement */
+.site-header .nav-inner,
+.site-header .header-inner,
+header .nav-inner,
+header .header-inner,
+.navbar-inner,
+.nav-container {
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+  align-items: center !important;
+  column-gap: clamp(24px, 4vw, 72px) !important;
+}
+
+.site-header .nav-left,
+header .nav-left,
+.nav-left {
+  justify-content: flex-start !important;
+}
+
+.site-header .nav-right,
+header .nav-right,
+.nav-right {
+  justify-content: flex-end !important;
+}
+
+.site-header .brand,
+.site-header .logo,
+header .brand,
+header .logo,
+.nav-brand,
+.nav-logo {
+  grid-column: 2 !important;
+  justify-self: center !important;
+}
+
+.site-header .nav-left,
+header .nav-left,
+.nav-left { grid-column: 1 !important; }
+
+.site-header .nav-right,
+header .nav-right,
+.nav-right { grid-column: 3 !important; }
+
+@media (max-width: 767px) {
+  .site-header .nav-inner,
+  .site-header .header-inner,
+  header .nav-inner,
+  header .header-inner,
+  .navbar-inner,
+  .nav-container {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+  }
+  .site-header .brand,
+  .site-header .logo,
+  header .brand,
+  header .logo,
+  .nav-brand,
+  .nav-logo {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
+</style>
 </head>
 <body>
 <header>
