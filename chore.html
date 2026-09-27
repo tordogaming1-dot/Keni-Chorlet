@@ -1401,6 +1401,59 @@ header.kc-nav-hidden{transform:translateY(-105%);}
   }
 }
 </style>
+<style id="kc-sticky-header">
+/* KEÑI CHORLÊT — persistent sticky header
+   The header remains visible while page content scrolls, like the reference behavior. */
+.kc-site-header{
+  position:sticky !important;
+  top:0 !important;
+  left:auto !important;
+  right:auto !important;
+  z-index:1000 !important;
+  width:100% !important;
+  transform:none !important;
+  background:#fff !important;
+  opacity:1 !important;
+}
+
+.kc-main-nav{
+  position:relative !important;
+  background:#fff !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  box-shadow:none !important;
+}
+
+header.kc-nav-hidden,
+.kc-site-header.kc-nav-hidden{
+  transform:none !important;
+}
+
+/* Preserve the dropdown directly below the sticky header. */
+.kc-site-header .kc-mega{
+  z-index:1001 !important;
+}
+
+@media(max-width:800px){
+  .kc-site-header{
+    position:sticky !important;
+    top:0 !important;
+    margin:0 3.5vw !important;
+    width:calc(100% - 7vw) !important;
+    z-index:1000 !important;
+    transform:none !important;
+  }
+
+  .kc-main-nav{
+    position:relative !important;
+  }
+
+  header.kc-nav-hidden,
+  .kc-site-header.kc-nav-hidden{
+    transform:none !important;
+  }
+}
+</style>
 </head>
 <body>
 <header class="kc-site-header">
