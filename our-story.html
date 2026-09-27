@@ -1035,88 +1035,163 @@ header.kc-nav-hidden{transform:translateY(-105%);}
 }
 
 </style>
-<style>
-/* KEÑI CHORLÊT — header structure refinement */
-.site-header .nav-inner,
-.site-header .header-inner,
-header .nav-inner,
-header .header-inner,
-.navbar-inner,
-.nav-container {
-  display: grid !important;
-  grid-template-columns: 1fr auto 1fr !important;
-  align-items: center !important;
-  column-gap: clamp(24px, 4vw, 72px) !important;
+
+
+<style id="kc-header-structure">
+/* KEÑI CHORLÊT — navigation structure only */
+.kc-site-header{
+  position:relative;
+  z-index:80;
 }
-
-.site-header .nav-left,
-header .nav-left,
-.nav-left {
-  justify-content: flex-start !important;
+.kc-main-nav{
+  height:clamp(76px, 8vw, 104px);
+  display:grid !important;
+  grid-template-columns:1fr auto 1fr !important;
+  align-items:center !important;
+  gap:clamp(20px,4vw,70px);
+  padding:0 clamp(22px,4vw,58px) !important;
+  border-bottom:1px solid rgba(40,34,34,.08);
 }
-
-.site-header .nav-right,
-header .nav-right,
-.nav-right {
-  justify-content: flex-end !important;
+.kc-nav-group{
+  display:flex;
+  align-items:center;
+  gap:clamp(20px,2.8vw,46px);
+  min-width:0;
 }
-
-.site-header .brand,
-.site-header .logo,
-header .brand,
-header .logo,
-.nav-brand,
-.nav-logo {
-  grid-column: 2 !important;
-  justify-self: center !important;
+.kc-nav-left{justify-content:flex-start;grid-column:1;}
+.kc-nav-right{justify-content:flex-end;grid-column:3;}
+.kc-nav-link{
+  display:inline-flex;
+  align-items:center;
+  white-space:nowrap;
+  color:inherit;
+  text-decoration:none;
+  font:inherit;
+  font-size:11px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:opacity 280ms var(--kc-ease),transform 280ms var(--kc-ease);
 }
+.kc-nav-link:hover{opacity:.58;transform:translateY(-1px);}
+.kc-centered-brand{
+  grid-column:2;
+  justify-self:center;
+  text-align:center;
+  white-space:nowrap;
+}
+.kc-centered-brand small{display:block;}
+.kc-search-trigger{user-select:none;}
+.kc-cart-count{font-size:.9em;margin-left:3px;}
+.kc-mobile-toggle,.kc-mobile-menu{display:none;}
 
-.site-header .nav-left,
-header .nav-left,
-.nav-left { grid-column: 1 !important; }
-
-.site-header .nav-right,
-header .nav-right,
-.nav-right { grid-column: 3 !important; }
-
-@media (max-width: 767px) {
-  .site-header .nav-inner,
-  .site-header .header-inner,
-  header .nav-inner,
-  header .header-inner,
-  .navbar-inner,
-  .nav-container {
-    display: flex !important;
-    justify-content: space-between !important;
-    gap: 16px !important;
+@media(max-width:800px){
+  .kc-main-nav{
+    height:72px;
+    grid-template-columns:44px 1fr 44px !important;
+    padding:0 18px !important;
   }
-  .site-header .brand,
-  .site-header .logo,
-  header .brand,
-  header .logo,
-  .nav-brand,
-  .nav-logo {
-    position: absolute !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+  .kc-nav-group{display:none;}
+  .kc-centered-brand{
+    grid-column:2;
+    font-size:15px;
   }
+  .kc-centered-brand small{font-size:7px;}
+  .kc-mobile-toggle{
+    grid-column:1;
+    grid-row:1;
+    display:flex;
+    width:38px;
+    height:38px;
+    padding:0;
+    border:0;
+    background:none;
+    flex-direction:column;
+    justify-content:center;
+    gap:6px;
+    cursor:pointer;
+  }
+  .kc-mobile-toggle span{
+    display:block;
+    width:20px;
+    height:1px;
+    background:currentColor;
+    transition:transform 280ms var(--kc-ease);
+  }
+  .kc-mobile-menu{
+    position:absolute;
+    top:72px;
+    left:0;
+    right:0;
+    display:flex;
+    flex-direction:column;
+    padding:12px 22px 24px;
+    background:var(--paper,#fffdfb);
+    border-bottom:1px solid rgba(40,34,34,.1);
+    box-shadow:0 18px 45px rgba(38,34,34,.07);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:translateY(-8px);
+    transition:opacity 320ms var(--kc-ease),transform 320ms var(--kc-ease),visibility 320ms;
+  }
+  .kc-site-header.kc-mobile-open .kc-mobile-menu{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform:translateY(0);
+  }
+  .kc-mobile-link{
+    padding:15px 0;
+    border-bottom:1px solid rgba(40,34,34,.08);
+    color:inherit;
+    text-decoration:none;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    cursor:pointer;
+  }
+  .kc-mobile-link:last-child{border-bottom:0;}
+  .kc-site-header.kc-mobile-open .kc-mobile-toggle span:first-child{transform:translateY(3.5px) rotate(45deg);}
+  .kc-site-header.kc-mobile-open .kc-mobile-toggle span:last-child{transform:translateY(-3.5px) rotate(-45deg);}
+}
+@media(prefers-reduced-motion:reduce){
+  .kc-nav-link,.kc-mobile-menu,.kc-mobile-toggle span{transition:none!important;}
 }
 </style>
+
 </head>
 <body>
-<header>
-  <div class="topbar">
-    <div class="locale">IN · ₹</div>
-    <a class="brand" href="index.html">KEÑI CHORLÊT<small>BLOOM OUTSIDE THE LINES.</small></a>
-    <div class="icons" aria-label="site actions"><span>♡</span><span>♙</span><span>⌕</span><span>♧</span></div>
+<header class="kc-site-header">
+  <div class="topbar kc-main-nav" aria-label="Primary navigation">
+    <div class="kc-nav-group kc-nav-left">
+      <a class="kc-nav-link kc-garden-trigger" href="garden.html">GARDEN</a>
+      <a class="kc-nav-link" href="our-story.html">ABOUT</a>
+    </div>
+
+    <a class="brand kc-centered-brand" href="index.html" aria-label="KEÑI CHORLÊT home">
+      KEÑI CHORLÊT
+      <small>BLOOM OUTSIDE THE LINES.</small>
+    </a>
+
+    <div class="kc-nav-group kc-nav-right" aria-label="Site actions">
+      <span class="kc-nav-link kc-search-trigger" role="button" tabindex="0" aria-label="Search">SEARCH</span>
+      <a class="kc-nav-link" href="#" aria-label="Account">ACCOUNT</a>
+      <a class="kc-nav-link" href="#" aria-label="Cart">CART <span class="kc-cart-count">(0)</span></a>
+    </div>
+
+    <button class="kc-mobile-toggle" type="button" aria-expanded="false" aria-controls="kc-mobile-menu" aria-label="Open navigation">
+      <span></span><span></span>
+    </button>
   </div>
-  <nav class="nav" aria-label="Primary navigation">
-    <a href="shop.html">shop</a>
-    <a href="garden.html">the garden</a>
-    <a href="chore.html">choré</a>
-    <a href="our-story.html">our story</a>
-    <a href="journal.html">journal</a>
-  </nav>
+
+  <div class="kc-mobile-menu" id="kc-mobile-menu">
+    <a href="garden.html" class="kc-mobile-link kc-garden-trigger">GARDEN</a>
+    <a href="our-story.html" class="kc-mobile-link">ABOUT</a>
+    <span class="kc-mobile-link kc-search-trigger" role="button" tabindex="0">SEARCH</span>
+    <a href="#" class="kc-mobile-link">ACCOUNT</a>
+    <a href="#" class="kc-mobile-link">CART <span class="kc-cart-count">(0)</span></a>
+  </div>
 </header>
 <main>
 <section class="page-intro"><div class="kicker">our story</div><h1 class="title">A garden of<br>your own.</h1><p>The story, values, and promise behind Keñi Chorlêt.</p></section><section class="story" id="story">
@@ -1282,15 +1357,28 @@ header .nav-right,
           anchor.setAttribute('aria-expanded',String(opening));
         }
       });
+      if(type==='garden'){
+        document.querySelectorAll('.kc-mobile-link.kc-garden-trigger').forEach(mobileAnchor=>{
+          mobileAnchor.addEventListener('click',(e)=>{
+            if(window.innerWidth<=800 || window.matchMedia('(hover: none)').matches){
+              e.preventDefault();
+              const opening=!menu.classList.contains('is-open');
+              document.querySelectorAll('.kc-mega.is-open').forEach(m=>m.classList.remove('is-open'));
+              menu.classList.toggle('is-open',opening);
+              mobileAnchor.setAttribute('aria-expanded',String(opening));
+            }
+          });
+        });
+      }
     }
-    makeMenu('shop',shopLink); makeMenu('garden',gardenLink);
+    makeMenu('garden',gardenLink);
   }
 
   /* Search overlay: works on every page and searches the six actual blooms. */
-  const icons = document.querySelector('.icons');
+  const icons = document.querySelector('.kc-nav-right');
   if(icons){
     const spans=Array.from(icons.querySelectorAll('span'));
-    const searchTrigger=spans[2] || spans.find(s=>/⌕|search/i.test(s.textContent));
+    const searchTrigger=document.querySelector('.kc-search-trigger');
     if(searchTrigger){
       searchTrigger.setAttribute('role','button');
       searchTrigger.setAttribute('tabindex','0');
@@ -1319,8 +1407,13 @@ header .nav-right,
       };
       const open=()=>{overlay.classList.add('is-open');document.body.style.overflow='hidden';setTimeout(()=>input.focus(),180);render();};
       const close=()=>{overlay.classList.remove('is-open');document.body.style.overflow='';};
-      searchTrigger.addEventListener('click',open);
-      searchTrigger.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+      document.querySelectorAll('.kc-search-trigger').forEach(trigger=>{
+        trigger.setAttribute('role','button');
+        trigger.setAttribute('tabindex','0');
+        trigger.setAttribute('aria-label','Search');
+        trigger.addEventListener('click',open);
+        trigger.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+      });
       overlay.querySelector('.kc-search-close').addEventListener('click',close);
       overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
       document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
@@ -1420,6 +1513,27 @@ header .nav-right,
     track.append(group(),group()); m.appendChild(track); oldMarquee.replaceWith(m);
   }
 })();
+
+    /* Mobile header menu */
+    const mobileToggle=document.querySelector('.kc-mobile-toggle');
+    const mobileHeader=document.querySelector('.kc-site-header');
+    if(mobileToggle && mobileHeader){
+      mobileToggle.addEventListener('click',()=>{
+        const open=!mobileHeader.classList.contains('kc-mobile-open');
+        mobileHeader.classList.toggle('kc-mobile-open',open);
+        mobileToggle.setAttribute('aria-expanded',String(open));
+        mobileToggle.setAttribute('aria-label',open?'Close navigation':'Open navigation');
+      });
+      mobileHeader.querySelectorAll('.kc-mobile-link').forEach(link=>{
+        link.addEventListener('click',()=>{
+          if(link.classList.contains('kc-search-trigger')) return;
+          mobileHeader.classList.remove('kc-mobile-open');
+          mobileToggle.setAttribute('aria-expanded','false');
+          mobileToggle.setAttribute('aria-label','Open navigation');
+        });
+      });
+    }
+
 </script>
 
 </body>
